@@ -63,11 +63,11 @@ support for the stable v1.0 specification, only lacking the following features:
 
 - `Directory`_ inputs and outputs in pipelines. Currently, directory inputs must
   be enumerated as Files.
-- `InitialWorkDirRequirement`_ to create files together within a specific work
-  directory. Collecting associated files using `secondaryFiles`_ is a good
-  workaround.
 - `File literals`_ that specify only ``contents`` to a File without an explicit
   file name.
+- Writable `InitialWorkDirRequirement
+  <http://www.commonwl.org/v1.0/CommandLineTool.html#InitialWorkDirRequirement>`
+  objects. Standard readable inputs do work.
 - Complex file inputs – from ExpressionTool or a default value, both of which do
   not yet get cleanly staged into Toil file management.
 
@@ -80,7 +80,6 @@ command line parameters to select and configure the batch system to use.
 
 .. _File literals: http://www.commonwl.org/v1.0/CommandLineTool.html#File
 .. _Directory: http://www.commonwl.org/v1.0/CommandLineTool.html#Directory
-.. _InitialWorkDirRequirement: http://www.commonwl.org/v1.0/CommandLineTool.html#InitialWorkDirRequirement
 .. _secondaryFiles: http://www.commonwl.org/v1.0/CommandLineTool.html#CommandInputParameter
 .. _CWL User Guide: http://www.commonwl.org/v1.0/UserGuide.html
 
@@ -190,6 +189,11 @@ There are several environment variables that affect the way Toil runs.
 |                        | terminated.                                        |
 +------------------------+----------------------------------------------------+
 | TOIL_SLURM_ARGS        | Arguments for sbatch for the slurm batch system.   |
+|                        | Do not pass CPU or memory specifications here.     |
+|                        | Instead, define resource requirements for the job. |
+|                        | There is no default value for this variable.       |
++------------------------+----------------------------------------------------+
+| TOIL_TORQUE_ARGS       | Arguments for qsub for the torque batch system.    |
 |                        | Do not pass CPU or memory specifications here.     |
 |                        | Instead, define resource requirements for the job. |
 |                        | There is no default value for this variable.       |
