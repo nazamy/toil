@@ -28,7 +28,7 @@ import sys
 import subprocess
 from unittest import skipIf
 
-from toil.common import Config
+from toil.common import Config, getLocalIP
 from toil.batchSystems.mesos.test import MesosTestSupport
 from toil.batchSystems.parasolTestSupport import ParasolTestSupport
 from toil.batchSystems.parasol import ParasolBatchSystem
@@ -326,7 +326,7 @@ class MesosBatchSystemTest(hidden.AbstractBatchSystemTest, MesosTestSupport):
         self._startMesos(numCores)
         return MesosBatchSystem(config=self.config,
                                 maxCores=numCores, maxMemory=1e9, maxDisk=1001,
-                                masterAddress='127.0.0.1:5050')
+                                masterAddress='%s:5050' % getLocalIP())
 
     def tearDown(self):
         self._stopMesos()

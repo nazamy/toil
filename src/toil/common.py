@@ -42,6 +42,8 @@ logger = logging.getLogger(__name__)
 # os.stat(<file>).st_blocks is called.
 unixBlockSize = 512
 
+def getLocalIP():
+    return socket.gethostbyname(socket.gethostname())
 
 class Config(object):
     """
@@ -74,7 +76,7 @@ class Config(object):
         self.disableHotDeployment = False
         self.scale = 1
         # may return localhost on some systems (not osx and coreos) https://stackoverflow.com/a/166520
-        self.mesosMasterAddress = '%s:5050' % socket.gethostbyname(socket.gethostname())
+        self.mesosMasterAddress = '%s:5050' % getLocalIP()
         self.parasolCommand = "parasol"
         self.parasolMaxBatches = 10000
         self.environment = {}
