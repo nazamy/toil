@@ -91,10 +91,6 @@ class SortTest(ToilTest, MesosTestSupport, ParasolTestSupport):
                 options.badWorker = badWorker
                 options.badWorkerFailInterval = 0.05
                 options.disableCaching = disableCaching
-                # This is required because mesosMasterAddress now defaults to the IP of the machine
-                # that is starting the workflow while the mesos *tests* run locally.
-                if batchSystem == 'mesos':
-                    options.mesosMasterAddress = 'localhost:5050'
 
                 # Make the file to sort
                 tempSortFile = os.path.join(self.tempDir, "fileToSort.txt")
