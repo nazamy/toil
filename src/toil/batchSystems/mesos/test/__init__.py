@@ -81,6 +81,6 @@ class MesosTestSupport(object):
             # cores, independent of how many cores the system running the test actually has.
             return [self.findMesosBinary('mesos-slave'),
                     '--ip=%s' % 'localhost', #getLocalIP(),
-                    '--master=%s:5050' % getLocalIP(),
+                    '--master=%s:5050' % 'localhost', #getLocalIP(),
                     '--attributes=preemptable:False',
                     '--resources=cpus(*):%i' % self.numCores]
