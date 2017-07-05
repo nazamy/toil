@@ -71,7 +71,7 @@ class MesosTestSupport(object):
         def mesosCommand(self):
             return [self.findMesosBinary('mesos-master'),
                     '--registry=in_memory',
-                    '--ip=%s' % 'localhost', #getLocalIP(),
+                    '--ip=%s' % getLocalIP(),
                     '--port=5050',
                     '--allocation_interval=500ms']
 
@@ -80,7 +80,7 @@ class MesosTestSupport(object):
             # NB: The --resources parameter forces this test to use a predictable number of
             # cores, independent of how many cores the system running the test actually has.
             return [self.findMesosBinary('mesos-slave'),
-                    '--ip=%s' % 'localhost', #getLocalIP(),
-                    '--master=%s:5050' % 'localhost', #getLocalIP(),
+                    '--ip=%s' % getLocalIP(),
+                    '--master=%s:5050' % getLocalIP(),
                     '--attributes=preemptable:False',
                     '--resources=cpus(*):%i' % self.numCores]
