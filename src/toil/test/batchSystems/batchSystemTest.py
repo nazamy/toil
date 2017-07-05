@@ -326,7 +326,7 @@ class MesosBatchSystemTest(hidden.AbstractBatchSystemTest, MesosTestSupport):
         self._startMesos(numCores)
         return MesosBatchSystem(config=self.config,
                                 maxCores=numCores, maxMemory=1e9, maxDisk=1001,
-                                masterAddress='%s:5050' % 'localhost') #getLocalIP())
+                                masterAddress='%s:5050' % getLocalIP())
 
     def tearDown(self):
         self._stopMesos()
