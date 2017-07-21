@@ -9,8 +9,6 @@ import multiprocessing
 from bd2k.util.processes import which
 from bd2k.util.threading import ExceptionalThread
 
-from toil.common import getLocalIP
-
 log = logging.getLogger(__name__)
 
 
@@ -71,7 +69,7 @@ class MesosTestSupport(object):
         def mesosCommand(self):
             return [self.findMesosBinary('mesos-master'),
                     '--registry=in_memory',
-                    '--ip=%s' % getLocalIP(),
+                    '--ip=127.0.0.1',
                     '--port=5050',
                     '--allocation_interval=500ms']
 
@@ -80,7 +78,7 @@ class MesosTestSupport(object):
             # NB: The --resources parameter forces this test to use a predictable number of
             # cores, independent of how many cores the system running the test actually has.
             return [self.findMesosBinary('mesos-slave'),
-                    '--ip=%s' % getLocalIP(),
-                    '--master=%s:5050' % getLocalIP(),
+                    '--ip=127.0.0.1',
+                    '--master=127.0.0.1:5050',
                     '--attributes=preemptable:False',
                     '--resources=cpus(*):%i' % self.numCores]
