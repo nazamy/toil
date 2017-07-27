@@ -28,7 +28,7 @@ import sys
 import subprocess
 from unittest import skipIf
 
-from toil.common import Config, getLocalIP
+from toil.common import Config
 from toil.batchSystems.mesos.test import MesosTestSupport
 from toil.batchSystems.parasolTestSupport import ParasolTestSupport
 from toil.batchSystems.parasol import ParasolBatchSystem
