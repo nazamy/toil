@@ -241,10 +241,10 @@ class AzureJobStore(AbstractJobStore):
         self._batchedJobGraphs = []
         yield
         with table_service.batch('jobItems') as batch:
-        for job in self._batchedJobGraphs:
-            entity = job.toItem(chunkSize=self.jobChunkSize)
-            entity["RowKey"] = job.jobStoreID
-            batch.insert_entity(entity)
+            for job in self._batchedJobGraphs:
+                entity = job.toItem(chunkSize=self.jobChunkSize)
+                entity["RowKey"] = job.jobStoreID
+                batch.insert_entity(entity)
         self._batchedJobGraphs = None
 
     def exists(self, jobStoreID):
