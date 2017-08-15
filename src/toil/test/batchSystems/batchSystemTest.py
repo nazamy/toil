@@ -318,6 +318,15 @@ class MesosBatchSystemTest(hidden.AbstractBatchSystemTest, MesosTestSupport):
     Tests against the Mesos batch system
     """
 
+    def createConfig(cls):
+        """
+        needs to set mesosMasterAddress to localhost for testing since the default is now the
+        private IP address
+        """
+        config = super(MesosBatchSystemTest, cls).createConfig()
+        config.mesosMasterAddress = 'localhost:5050'
+        return config
+
     def supportsWallTime(self):
         return True
 
