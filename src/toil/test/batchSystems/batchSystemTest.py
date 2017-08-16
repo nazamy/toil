@@ -801,7 +801,7 @@ class MesosBatchSystemJobTest(hidden.AbstractBatchSystemJobTest, MesosTestSuppor
     """
 
     def getOptions(self, tempDir):
-        options = super(MesosBatchSystemJobTest, self)
+        options = super(MesosBatchSystemJobTest, self).getOptions(tempDir)
         options.mesosMasterAddress = 'localhost:5050'
         return options
 
