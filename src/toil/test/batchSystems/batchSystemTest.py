@@ -256,6 +256,19 @@ class hidden:
             """
             raise NotImplementedError
 
+        def getOptions(self, tempDir):
+            """
+            Configures options for Toil workflow and makes job store.
+            :param str tempDir: path to test directory
+            :return: Toil options object
+            """
+            options = Job.Runner.getDefaultOptions(self._getTestJobStorePath())
+            options.logLevel = "DEBUG"
+            options.batchSystem = self.batchSystemName
+            options.workDir = tempDir
+            options.maxCores = self.cpuCount
+            return options
+
         def setUp(self):
             self.batchSystemName = self.getBatchSystemName()
             super(hidden.AbstractBatchSystemJobTest, self).setUp()
@@ -269,11 +282,7 @@ class hidden:
             """
             for coresPerJob in self.allocatedCores:
                 tempDir = self._createTempDir('testFiles')
-
-                options = Job.Runner.getDefaultOptions(self._getTestJobStorePath())
-                options.workDir = tempDir
-                options.maxCores = self.cpuCount
-                options.batchSystem = self.batchSystemName
+                options = self.getOptions(tempDir)
 
                 counterPath = os.path.join(tempDir, 'counter')
                 resetCounters(counterPath)
@@ -790,6 +799,11 @@ class MesosBatchSystemJobTest(hidden.AbstractBatchSystemJobTest, MesosTestSuppor
     """
     Tests Toil workflow against the Mesos batch system
     """
+
+    def getOptions(self, tempDir):
+        options = super(MesosBatchSystemJobTest, self)
+        options.mesosMasterAddress = 'localhost:5050'
+        return options
 
     def getBatchSystemName(self):
         self._startMesos(self.cpuCount)
